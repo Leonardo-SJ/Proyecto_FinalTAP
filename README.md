@@ -1,4 +1,4 @@
-# Concesionaria Biker
+# Documentacion Concesionaria Biker
 ## Funcionalidad del proyecto
 ### Login
 ![image](https://github.com/user-attachments/assets/863207c1-2919-4a3a-9103-a5731e34cdb4)
@@ -60,7 +60,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- * @author ediso
+ * @author Equipo15
  */
 public class Conexion {
 
@@ -141,3 +141,188 @@ catch (SQLException e) {
 usuario o contraseña incorrectos, o la base de datos no está disponible, se lanza una 
 SQLException.
 * El mensaje de error se imprime en la consola.
+  
+#### Return
+* Si la conexión se establece correctamente, el objeto Connection( cn) se devuelve al 
+llamador.
+* Si ocurre un error, el método devuelve null.
+### Clase Ctrl_Categoria
+```java
+package controlador;
+
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import modelo.Categoria;
+
+/**
+ *
+ * @author Equipo15
+ */
+public class Ctrl_Categoria {
+
+    /**
+     * **************************************************
+     * metodo para guardar una nueva categoria
+     * **************************************************
+     */
+    public boolean guardar(Categoria objeto) {
+        boolean respuesta = false;
+        Connection cn = controlador.Conexion.conectar();
+        try {
+
+            PreparedStatement consulta = cn.prepareStatement("insert into tb_categoria values(?,?,?)");
+            consulta.setInt(1, 0);
+            consulta.setString(2, objeto.getDescripcion());
+            consulta.setInt(3, objeto.getEstado());
+
+            if (consulta.executeUpdate() > 0) {
+                respuesta = true;
+            }
+
+            cn.close();
+
+        } catch (SQLException e) {
+            System.out.println("Error al guardar cartegoria: " + e);
+        }
+
+        return respuesta;
+    }
+
+    /**
+     * ********************************************************************
+     * metodo para consultar si la categoria registrado ya existe
+     * ********************************************************************
+     */
+    public boolean existeCategoria(String categoria) {
+        boolean respuesta = false;
+        String sql = "select descripcion from tb_categoria where descripcion = '" + categoria + "';";
+        Statement st;
+
+        try {
+            Connection cn = Conexion.conectar();
+            st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                respuesta = true;
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al consultar cartegoria: " + e);
+        }
+        return respuesta;
+    }
+    
+     /**
+     * **************************************************
+     * metodo para actualizar una nueva categoria
+     * **************************************************
+     */
+    public boolean actualizar(Categoria objeto, int idCategoria) {
+        boolean respuesta = false;
+        Connection cn = controlador.Conexion.conectar();
+        try {
+
+            PreparedStatement consulta = cn.prepareStatement("update tb_categoria set descripcion=? where idCategoria ='" + idCategoria + "'");
+            consulta.setString(1, objeto.getDescripcion());
+           
+            if (consulta.executeUpdate() > 0) {
+                respuesta = true;
+            }
+
+            cn.close();
+
+        } catch (SQLException e) {
+            System.out.println("Error al actualizar cartegoria: " + e);
+        }
+
+        return respuesta;
+    }
+    
+    
+    /**
+     * **************************************************
+     * metodo para eliminar una nueva categoria
+     * **************************************************
+     */
+    public boolean eliminar(int idColumna) {
+        boolean respuesta = false;
+        Connection cn = Conexion.conectar();
+        try {
+
+            PreparedStatement consulta = cn.prepareStatement(
+                    "delete from tb_categoria where idColumna ='" + idColumna + "'");
+            consulta.executeUpdate();
+           
+            if (consulta.executeUpdate() > 0) {
+                respuesta = true;
+            }
+
+            cn.close();
+
+        } catch (SQLException e) {
+            System.out.println("Error al eliminar cartegoria: " + e);
+        }
+
+        return respuesta;
+    }
+}
+
+```
+Importaciones
+```java 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import modelo.Categoria;
+```
+* Connection: Representa la conexión con la base de datos.
+* PreparedStatement: Objeto para ejecutar consultas SQL parametrizadas.
+* ResultSet: Almacena resultados de consultas SQL SELECT.
+* SQLException: Maneja errores relacionados con la base de datos.
+* Statement: Ejecuta consultas SQL no parametrizadas.
+* Categoria: Clase modelo que almacena los atributos de una categoría.
+
+Método guardar
+```java
+    public boolean guardar(Categoria objeto) {
+        boolean respuesta = false;
+        Connection cn = controlador.Conexion.conectar();
+        try {
+
+            PreparedStatement consulta = cn.prepareStatement("insert into tb_categoria values(?,?,?)");
+            consulta.setInt(1, 0);
+            consulta.setString(2, objeto.getDescripcion());
+            consulta.setInt(3, objeto.getEstado());
+
+            if (consulta.executeUpdate() > 0) {
+                respuesta = true;
+            }
+
+            cn.close();
+
+        } catch (SQLException e) {
+            System.out.println("Error al guardar cartegoria: " + e);
+        }
+
+        return respuesta;
+    }
+```
+Descripción
+1. Objetivo : Inserta una nueva categoría en la tabla tb_categoria.
+2. Parámetros : Recibe un objeto Categoria, que contiene la descripción y estado de la 
+categoría.
+3. Lógica :
+o Se conecta a la base de datos usando Conexion.conectar().
+o Utilice un PreparedStatementpara la consulta parametrizada INSERT.
+o setIntysetString : Asigna valores a los parámetros de la consulta.
+▪ 1: Valor 0(se supone que el ID es autoincremental).
+▪ 2: Descripción de la categoría.
+▪ 3: Estado de la categoría.
+o executeUpdate: Ejecuta la consulta y devuelve el número de filas afectadas.
+4. Cierre : Cierra la conexión al final.
