@@ -11,10 +11,10 @@ Si este es correcto nos enseñara un mensaje, Bienvenido * usuario n*, dependien
 ![image](https://github.com/user-attachments/assets/238c1811-8abe-46fe-bb54-9fb38c132f8a)
 
 
-![image](https://github.com/user-attachments/assets/1bf2c562-ecce-469e-9c74-677fe5900cff)
-
-
 ![image](https://github.com/user-attachments/assets/e758989d-980e-4542-8486-2147f9043029)
+
+
+![image](https://github.com/user-attachments/assets/010cfea2-bd7b-4f41-be51-da6c3ed7450c)
 
 
 ![image](https://github.com/user-attachments/assets/e3e64184-903e-4d2d-9193-98e06a8d6905)
