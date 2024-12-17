@@ -326,3 +326,104 @@ o setIntysetString : Asigna valores a los parámetros de la consulta.
 ▪ 3: Estado de la categoría.
 o executeUpdate: Ejecuta la consulta y devuelve el número de filas afectadas.
 4. Cierre : Cierra la conexión al final.
+
+Método existe Categoría
+```java
+    public boolean existeCategoria(String categoria) {
+        boolean respuesta = false;
+        String sql = "select descripcion from tb_categoria where descripcion = '" + categoria + "';";
+        Statement st;
+
+        try {
+            Connection cn = Conexion.conectar();
+            st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                respuesta = true;
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al consultar cartegoria: " + e);
+        }
+        return respuesta;
+    }
+```
+
+Descripción
+1. Objetivo : Comprueba si una categoría ya existe en la base de datos.
+2. Parámetros : Recibe un Stringcon el nombre de la categoría.
+3. Lógica :
+o Se conecta a la base de datos.
+o Se ejecuta una consulta SQL SELECTmediante un Statement.
+o Si el ResultSetdevuelve alguna fila, se establece respuesta = true(categoría 
+existente)
+
+Método actualizar
+```java
+    public boolean actualizar(Categoria objeto, int idCategoria) {
+        boolean respuesta = false;
+        Connection cn = controlador.Conexion.conectar();
+        try {
+ 
+            PreparedStatement consulta = cn.prepareStatement("update tb_categoria set descripcion=? where idCategoria ='" + idCategoria + "'");
+            consulta.setString(1, objeto.getDescripcion());
+           
+            if (consulta.executeUpdate() > 0) {
+                respuesta = true;
+            }
+
+            cn.close();
+
+        } catch (SQLException e) {
+            System.out.println("Error al actualizar cartegoria: " + e);
+        }
+
+        return respuesta;
+    }
+```
+Descripción
+1. Objetivo : Actualiza la descripción de una categoría existente.
+2. Parámetros :
+o objeto: Contiene la nueva descripción.
+o idCategoria: ID de la categoría que se desea actualizar.
+3. Lógica :
+o Utilice uno PreparedStatementpara la consulta UPDATE.
+o setStringasigna la nueva descripción.
+o La condición where idCategoria = ? asegura que solo se actualizará el 
+registro correcto.
+
+Método eliminar
+
+```java
+    public boolean eliminar(int idColumna) {
+        boolean respuesta = false;
+        Connection cn = Conexion.conectar();
+        try {
+
+            PreparedStatement consulta = cn.prepareStatement(
+                    "delete from tb_categoria where idColumna ='" + idColumna + "'");
+            consulta.executeUpdate();
+           
+            if (consulta.executeUpdate() > 0) {
+                respuesta = true;
+            }
+
+            cn.close();
+
+        } catch (SQLException e) {
+            System.out.println("Error al eliminar cartegoria: " + e);
+        }
+
+        return respuesta;
+    }
+```
+Descripción
+1. Objetivo : Eliminar una categoría de la tabla tb_categoria.
+2. Parámetros : Recibe el idColumnaque identifica la fila a eliminar.
+3. Lógica :
+o Utilice uno PreparedStatementcon una consulta DELETE.
+o La condición where idColumna = ?identifica qué fila eliminar.
+o Error : El método se ejecuta executeUpdatedos veces. Solo una llamada es 
+necesaria.
+
+### Clase Ctrl_Cliente
