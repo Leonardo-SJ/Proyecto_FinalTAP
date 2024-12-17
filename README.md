@@ -427,3 +427,202 @@ o Error : El método se ejecuta executeUpdatedos veces. Solo una llamada es
 necesaria.
 
 ### Clase Ctrl_Cliente
+```java
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import modelo.Cliente;
+
+/**
+ *
+ * @author Equipo15
+ */
+public class Ctrl_Cliente {
+
+    /**
+     * **************************************************
+     * metodo para guardar un nuevo clientw
+     * **************************************************
+     */
+   public boolean guardar(Cliente objeto) {
+        boolean respuesta = false;
+        Connection cn = Conexion.conectar();
+        try {
+            PreparedStatement consulta = cn.prepareStatement("insert into tb_cliente values(?,?,?,?,?,?)");
+            consulta.setInt(1, 0);//id
+            consulta.setString(2, objeto.getNombre());
+            consulta.setString(3, objeto.getApellido());
+            consulta.setString(4, objeto.getCedula());
+            consulta.setString(5, objeto.getTelefono());
+            consulta.setString(6, objeto.getDireccion());
+           
+            if (consulta.executeUpdate() > 0) {
+                respuesta = true;
+            }
+            cn.close();
+        } catch (SQLException e) {
+            System.out.println("Error al guardar cliente: " + e);
+        }
+        return respuesta;
+   }
+    
+    /**
+     * ********************************************************************
+     * metodo para consultar si el producto ya esta registrado en la BBDD
+     * ********************************************************************
+     */
+    public boolean existeCliente(String cedula) {
+        boolean respuesta = false;
+        String sql = "select cedula from tb_cliente where cedula = '" + cedula + "';";
+        Statement st;
+        try {
+            Connection cn = Conexion.conectar();
+            st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                respuesta = true;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al consultar cliente: " + e);
+        }
+        return respuesta;
+    }
+
+    /**
+     * **************************************************
+     * metodo para actualizar un cliente
+     * **************************************************
+     */
+   
+
+    public boolean actualizar(Cliente cliente, int idCliente) {
+        boolean respuesta = false;
+        Connection cn = Conexion.conectar();
+        try {
+            String sql = "UPDATE tb_cliente SET nombre = ?, apellido = ?, cedula = ?, telefono = ?, direccion = ? WHERE idCliente = ?";
+            PreparedStatement pst = cn.prepareStatement(sql);
+            
+            pst.setString(1, cliente.getNombre());
+            pst.setString(2, cliente.getApellido());
+            pst.setString(3, cliente.getCedula());
+            pst.setString(4, cliente.getTelefono());
+            pst.setString(5, cliente.getDireccion());
+            pst.setInt(6, idCliente);
+            
+            if (pst.executeUpdate() > 0) {
+                respuesta = true;
+            }
+            cn.close();
+        } catch (SQLException e) {
+            System.out.println("Error al actualizar cliente: " + e);
+        }
+        return respuesta;
+    
+}
+
+
+    /**
+     * **************************************************
+     * metodo para eliminar un cliente
+     * **************************************************
+     */
+       public boolean eliminar(int idCliente) {
+        boolean respuesta = false;
+        Connection cn = Conexion.conectar();
+        try {
+            PreparedStatement consulta = cn.prepareStatement(
+                    "delete from tb_cliente where idCliente ='" + idCliente + "'");
+            consulta.executeUpdate();
+
+            if (consulta.executeUpdate() > 0) {
+                respuesta = true;
+            }
+            cn.close();
+        } catch (SQLException e) {
+            System.out.println("Error al eliminar cliente: " + e);
+        }
+        return respuesta;
+    }
+
+
+
+}
+```
+Importaciones
+```java
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import modelo.Cliente;
+```
+Estas importaciones son necesarias para trabajar con JDBC (Java Database Connectivity) y realizar 
+operaciones con la base de datos. También se importan clases para mostrar cuadros de diálogo y 
+las clases Cliente y Empleado.
+```java
+   public boolean guardar(Cliente objeto) {
+        boolean respuesta = false;
+        Connection cn = Conexion.conectar();
+        try {
+            PreparedStatement consulta = cn.prepareStatement("insert into tb_cliente values(?,?,?,?,?,?)");
+            consulta.setInt(1, 0);//id
+            consulta.setString(2, objeto.getNombre());
+            consulta.setString(3, objeto.getApellido());
+            consulta.setString(4, objeto.getCedula());
+            consulta.setString(5, objeto.getTelefono());
+            consulta.setString(6, objeto.getDireccion());
+           
+            if (consulta.executeUpdate() > 0) {
+                respuesta = true;
+            }
+            cn.close();
+        } catch (SQLException e) {
+            System.out.println("Error al guardar cliente: " + e);
+        }
+        return respuesta;
+   }
+```
+Descripción :
+1. Objetivo : Insertar un nuevo cliente en la tabla tb_cliente.
+2. Parámetros :
+o Recibe un objeto Clienteque contenga datos como nombre, apellido, 
+cedula, etc.
+3. Lógica :
+o Se conecta a la base de datos.
+o Prepare una consulta SQL parametrizada para insertar un registro.
+o setIntysetString : Asigna valores a los campos en el orden indicado.
+o Ejecuta la consulta con executeUpdate(), que devuelve el número de filas 
+afectadas.
+o Si es mayor que 0, la operación fue exitosa.
+
+Método existe Cliente
+```java
+    public boolean existeCliente(String cedula) {
+        boolean respuesta = false;
+        String sql = "select cedula from tb_cliente where cedula = '" + cedula + "';";
+        Statement st;
+        try {
+            Connection cn = Conexion.conectar();
+            st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                respuesta = true;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al consultar cliente: " + e);
+        }
+        return respuesta;
+    }
+```
+Descripción :
+1. Objetivo : Verificar si un cliente con una cédula específica ya está registrado.
+2. Parámetros :
+o Recibe un Stringque contiene la cédula del cliente.
+3. Lógica :
+o Construya una consulta SQL para buscar la cédula en la tabla tb_cliente.
+o Si ResultSetdevuelve algún registro, se establece respuesta = true.
+
+Método actualizar
