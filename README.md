@@ -51,6 +51,7 @@ El empleado cuenta con dos diferentes botones:
 
 ## Clases de control
 ### Clase Conexion
+#### Codigo
 ```java
 package controlador;
 
@@ -76,6 +77,32 @@ public class Conexion {
         return null;
     }
 }
-
-
-
+```
+#### Importaciones
+```java
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+```
+• Connection: Representa la conexión con la base de datos.
+• DriverManager: Gestiona los controladores JDBC y facilita la obtención de conexiones 
+con la base de datos.
+• SQLException: Maneja las excepciones relacionadas con operaciones de bases de datos.
+#### Definición del método
+```java
+   public static Connection conectar() {
+        try {
+            Connection cn = DriverManager.getConnection(
+                    "jdbc:mysql://localhost/bd_sistema_concesionario?useSSL=false", "root", "25112004"
+            );
+            return cn;
+        } catch (SQLException e) {
+            System.out.println("Error en la conexión local: " + e);
+        }
+        return null;
+    }
+```
+• El método conectar()es static, lo que significa que se puede llamar sin necesidad de 
+crear una instancia de la clase Conexion.
+• Tipo de retorno : Devuelve un objeto de tipo Connectionsi la conexión es exitosa; de lo 
+contrario, devuelve null
