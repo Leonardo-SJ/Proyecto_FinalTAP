@@ -2368,29 +2368,29 @@ Método generarFacturaPDF
 ```
 Genera el archivo PDF con la factura de venta. Este es el núcleo del código.
 a) Configuración inicial
-• Obtiene la fecha actual y la formatea.
-• Define el nombre del archivo PDF basado en el nombre del cliente y la fecha actual.
-• Crea un archivo en la ruta src/pdf/.
+* Obtiene la fecha actual y la formatea.
+* Define el nombre del archivo PDF basado en el nombre del cliente y la fecha actual.
+* Crea un archivo en la ruta src/pdf/.
 b) Encabezado
-• Incluye un logotipo ( emblema.jpeg).
-• Agrega datos de la empresa, como:
+* Incluye un logotipo ( emblema.jpeg).
+* Agrega datos de la empresa, como:
 o Nombre
 o RUC (número de identificación fiscal)
 o Dirección
 o Razón social
-• Muestra la fecha de la factura.
+* Muestra la fecha de la factura.
 c) Datos del cliente
 Crea una tabla que contiene la información básica del cliente, como:
-• Cédula/RUC
-• Nombre
-• Teléfono
-• Dirección
+* Cédula/RUC
+* Nombre
+* Teléfono
+* Dirección
 d) Productos
 Crea una tabla para listar los productos adquiridos. Incluye:
-• Cantidad
-• Descripción
-• Precio unitario
-• Precio total
+* Cantidad
+* Descripción
+* Precio unitario
+* Precio total
 Los datos se obtienen del componente jTable_productos(probablemente una tabla en la 
 interfaz gráfica de la clase CrearFactura).
 e) Total a pagar
