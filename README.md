@@ -33,6 +33,10 @@ El administrador cuenta con cinco diferentes botones:
 ![image](https://github.com/user-attachments/assets/bd7ad2ea-6867-4002-bc76-008f9a1ba035)
 
 * Inventario el cual nos permite agregar productos al inventario, gestionarlo o agregar cantidades del producto a la base de datos corresponidente en la base de datos de almacen.
+![image](https://github.com/user-attachments/assets/f4184279-7498-434b-b93a-776da5757162)
+![image](https://github.com/user-attachments/assets/fb1aa7d5-4bbc-4c7c-b81e-8797d1e7acb9)
+
+
 * Ventas el cual nos permite visualizar las ventas que se han realizado.
 * Categoria: nos permite gestionar la categorias de las motos.
 
