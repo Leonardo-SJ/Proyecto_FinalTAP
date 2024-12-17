@@ -626,3 +626,375 @@ o Construya una consulta SQL para buscar la cédula en la tabla tb_cliente.
 o Si ResultSetdevuelve algún registro, se establece respuesta = true.
 
 Método actualizar
+```java
+    public boolean actualizar(Cliente cliente, int idCliente) {
+        boolean respuesta = false;
+        Connection cn = Conexion.conectar();
+        try {
+            String sql = "UPDATE tb_cliente SET nombre = ?, apellido = ?, cedula = ?, telefono = ?, direccion = ? WHERE idCliente = ?";
+            PreparedStatement pst = cn.prepareStatement(sql);
+            
+            pst.setString(1, cliente.getNombre());
+            pst.setString(2, cliente.getApellido());
+            pst.setString(3, cliente.getCedula());
+            pst.setString(4, cliente.getTelefono());
+            pst.setString(5, cliente.getDireccion());
+            pst.setInt(6, idCliente);
+            
+            if (pst.executeUpdate() > 0) {
+                respuesta = true;
+            }
+            cn.close();
+        } catch (SQLException e) {
+            System.out.println("Error al actualizar cliente: " + e);
+        }
+        return respuesta;
+    
+}
+```
+Descripción :
+1. Objetivo : Actualizar la información de un cliente existente.
+2. Parámetros :
+o Cliente cliente: Contiene los nuevos valores para el cliente.
+o int idCliente: El ID del cliente a actualizar.
+3. Lógica :
+o Se prepara una consulta UPDATE con parámetros ?.
+o Asigna los valores actualizados usando setStringy setInt.
+o Ejecuta la consulta con executeUpdate().
+o Si la cantidad de filas afectadas es mayor que 0, la operación fue exitosa.
+
+Método eliminar
+```java
+       public boolean eliminar(int idCliente) {
+        boolean respuesta = false;
+        Connection cn = Conexion.conectar();
+        try {
+            PreparedStatement consulta = cn.prepareStatement(
+                    "delete from tb_cliente where idCliente ='" + idCliente + "'");
+            consulta.executeUpdate();
+
+            if (consulta.executeUpdate() > 0) {
+                respuesta = true;
+            }
+            cn.close();
+        } catch (SQLException e) {
+            System.out.println("Error al eliminar cliente: " + e);
+        }
+        return respuesta;
+    }
+```
+Descripción :
+1. Objetivo : Eliminar un cliente de la tabla tb_cliente.
+2. Parámetros :
+o int idCliente: El ID del cliente que se desea eliminar.
+3. Lógica :
+o Construya una consulta SQL DELETEpara eliminar un registro basado en el ID .
+o Error : Se llama executeUpdate()dos veces. Esto no es necesario y es 
+incorrecto.
+4. Problema de seguridad : La concatenación del parámetro idClienteen la consulta 
+introduce la inyección SQL .
+
+### Clase Ctrl_Producto
+```java
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.table.DefaultTableModel;
+import modelo.Producto;
+import vista.AdministrarInventarioAdministrador;
+
+/**
+ *
+ * @author Edison Zambrano - © Programador Fantasma
+ */
+public class Ctrl_Producto {
+     /**
+     * **************************************************
+     * metodo para guardar un nuevo producto
+     * **************************************************
+     */
+    public boolean guardar(Producto objeto) {
+        boolean respuesta = false;
+        Connection cn = Conexion.conectar();
+        try {
+
+            PreparedStatement consulta = cn.prepareStatement("insert into tb_producto values(?,?,?,?,?,?,?)");
+            consulta.setInt(1, 0);//id
+            consulta.setString(2, objeto.getNombre());
+            consulta.setInt(3, objeto.getCantidad());
+            consulta.setDouble(4, objeto.getPrecio());
+            consulta.setString(5, objeto.getDescripcion());
+            consulta.setInt(6, objeto.getPorcentajeIva());
+            consulta.setInt(7, objeto.getIdCategoria());
+           
+
+            if (consulta.executeUpdate() > 0) {
+                respuesta = true;
+            }
+
+            cn.close();
+
+        } catch (SQLException e) {
+            System.out.println("Error al guardar producto: " + e);
+        }
+
+        return respuesta;
+    }
+
+    /**
+     * ********************************************************************
+     * metodo para consultar si el producto ya esta registrado en la BBDD
+     * ********************************************************************
+     */
+    public boolean existeProducto(String producto) {
+        boolean respuesta = false;
+        String sql = "select nombre from tb_producto where nombre = '" + producto + "';";
+        Statement st;
+
+        try {
+            Connection cn = Conexion.conectar();
+            st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                respuesta = true;
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al consultar producto: " + e);
+        }
+        return respuesta;
+    }
+    
+     /**
+     * **************************************************
+     * metodo para actualizar un producto
+     * **************************************************
+     */
+
+    public boolean actualizar(Producto producto, int idProducto) {
+        boolean respuesta = false;
+        Connection cn = Conexion.conectar();
+        try {
+            String sql = "UPDATE tb_producto SET nombre = ?, cantidad = ?, precio = ?, descripcion = ?, porcentajeIva = ?, idCategoria = ? WHERE idProducto = ?";
+            PreparedStatement pst = cn.prepareStatement(sql);
+
+            pst.setString(1, producto.getNombre());
+            pst.setInt(2, producto.getCantidad());
+            pst.setDouble(3, producto.getPrecio());
+            pst.setString(4, producto.getDescripcion());
+            pst.setInt(5, producto.getPorcentajeIva());
+            pst.setInt(6, producto.getIdCategoria());
+            pst.setInt(7, idProducto);
+
+            if (pst.executeUpdate() > 0) {
+                respuesta = true;
+            }
+            cn.close();
+        } catch (SQLException e) {
+            System.out.println("Error al actualizar producto: " + e);
+        }
+        return respuesta;
+    }
+
+
+    
+    
+    /**
+     * **************************************************
+     * metodo para eliminar un producto
+     * **************************************************
+     */
+    public boolean eliminar(int idProducto) {
+        boolean respuesta = false;
+        Connection cn = Conexion.conectar();
+        try {
+            PreparedStatement consulta = cn.prepareStatement(
+                    "delete from tb_producto where idProducto ='" + idProducto + "'");
+            consulta.executeUpdate();
+           
+            if (consulta.executeUpdate() > 0) {
+                respuesta = true;
+            }
+            cn.close();
+        } catch (SQLException e) {
+            System.out.println("Error al eliminar producto: " + e);
+        }
+        return respuesta;
+    }
+    
+    /**
+     * **************************************************
+     * metodo para actualizar stock un producto
+     * **************************************************
+     */
+    
+     public boolean actualizarStock(Producto object, int idProducto) {
+        boolean respuesta = false;
+        Connection cn = Conexion.conectar();
+        try {
+            PreparedStatement consulta = cn.prepareStatement("update tb_producto set cantidad=? where idProducto ='" + idProducto + "'");
+            consulta.setInt(1, object.getCantidad());
+
+            if (consulta.executeUpdate() > 0) {
+                respuesta = true;
+            }
+            cn.close();
+        } catch (SQLException e) {
+            System.out.println("Error al actualizar stock del producto: " + e);
+        }
+        return respuesta;
+    }
+     
+}
+```
+
+
+Importaciones
+```java
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.table.DefaultTableModel;
+import modelo.Producto;
+import vista.AdministrarInventarioAdministrador;
+```
+* Connection: Representa la conexión con la base de datos
+* PreparedStatement: Permite ejecutar consultas SQL parametrizadas (seguras y 
+eficientes).
+* ResultSet: Contiene los resultados devueltos por una consulta SQL.
+* SQLException: Captura de errores relacionados
+* Statement: Ejecuta consultas SQL sin parámetros (menos seguro).
+* Producto: Clase modelo que representa un producto con sus atr
+* DefaultTableModel: Se usa para manejar datos en tabla
+* AdministrarInventarioAdministrador: Posiblemente una interfaz grafica
+
+  Metodo guardar el producto
+```java
+      public boolean guardar(Producto objeto) {
+        boolean respuesta = false;
+        Connection cn = Conexion.conectar();
+        try {
+
+            PreparedStatement consulta = cn.prepareStatement("insert into tb_producto values(?,?,?,?,?,?,?)");
+            consulta.setInt(1, 0);//id
+            consulta.setString(2, objeto.getNombre());
+            consulta.setInt(3, objeto.getCantidad());
+            consulta.setDouble(4, objeto.getPrecio());
+            consulta.setString(5, objeto.getDescripcion());
+            consulta.setInt(6, objeto.getPorcentajeIva());
+            consulta.setInt(7, objeto.getIdCategoria());
+           
+
+            if (consulta.executeUpdate() > 0) {
+                respuesta = true;
+            }
+
+            cn.close();
+
+        } catch (SQLException e) {
+            System.out.println("Error al guardar producto: " + e);
+        }
+
+        return respuesta;
+    }
+```
+  Descripción :
+1. Objetivo : Insertar un nuevo producto en la tabla tb_producto.
+2. Parámetros : Un objeto Productoque contiene los datos del producto (nomb
+3. Lógica :
+o Se utiliza una consulta SQL parametrizada para insertar valores.
+o Se ejecuta la consulta y se verifica si executeUpdate()devuelve
+
+Método existeProducto
+```java
+    public boolean existeProducto(String producto) {
+        boolean respuesta = false;
+        String sql = "select nombre from tb_producto where nombre = '" + producto + "';";
+        Statement st;
+
+        try {
+            Connection cn = Conexion.conectar();
+            st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                respuesta = true;
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al consultar producto: " + e);
+        }
+        return respuesta;
+    }
+```
+Descripción :
+1. Objetivo : Verificar si un producto ya existe en la base de datos.
+2. Parámetros : El nombre del producto como String.
+3. Lógica :
+o Se ejecuta una consulta usando SQL Statement(lo cual no es seguro por la 
+posibilidad de inyección SQL ).
+o Si ResultSetdevuelve algún registro, se establece la variable respuestacomo 
+true.
+
+Método actualizar
+```java
+    public boolean actualizar(Producto producto, int idProducto) {
+        boolean respuesta = false;
+        Connection cn = Conexion.conectar();
+        try {
+            String sql = "UPDATE tb_producto SET nombre = ?, cantidad = ?, precio = ?, descripcion = ?, porcentajeIva = ?, idCategoria = ? WHERE idProducto = ?";
+            PreparedStatement pst = cn.prepareStatement(sql);
+
+            pst.setString(1, producto.getNombre());
+            pst.setInt(2, producto.getCantidad());
+            pst.setDouble(3, producto.getPrecio());
+            pst.setString(4, producto.getDescripcion());
+            pst.setInt(5, producto.getPorcentajeIva());
+            pst.setInt(6, producto.getIdCategoria());
+            pst.setInt(7, idProducto);
+
+            if (pst.executeUpdate() > 0) {
+                respuesta = true;
+            }
+            cn.close();
+        } catch (SQLException e) {
+            System.out.println("Error al actualizar producto: " + e);
+        }
+        return respuesta;
+    }
+```
+Descripción :
+1. Objetivo : Actualizar los datos de un producto específico.
+2. Parámetros :
+o Producto objeto: Contiene los nuevos datos del producto.
+o int idProducto: Identificador del producto a actualizar.
+3. Lógica :
+o Se utiliza una consulta UPDATEparametrizada.
+o Se asignan los nuevos valores con setString, setInt, etc.
+
+Método eliminar
+```java
+    public boolean eliminar(int idProducto) {
+        boolean respuesta = false;
+        Connection cn = Conexion.conectar();
+        try {
+            PreparedStatement consulta = cn.prepareStatement(
+                    "delete from tb_producto where idProducto ='" + idProducto + "'");
+            consulta.executeUpdate();
+           
+            if (consulta.executeUpdate() > 0) {
+                respuesta = true;
+            }
+            cn.close();
+        } catch (SQLException e) {
+            System.out.println("Error al eliminar producto: " + e);
+        }
+        return respuesta;
+    }
+```
+Descripción :
+1. Objetivo : Eliminar un producto de la base de datos.
+2. Parámetros : int idProducto, el ID del producto a eliminar
