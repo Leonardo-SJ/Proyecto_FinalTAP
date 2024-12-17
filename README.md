@@ -27,11 +27,21 @@ Si el usuario o contraseñas son incorrectas nos mostrara el mensaje correspondi
 
 ## Administrador
 
+El administrador cuenta con cinco diferentes botones:
+* Empleado: nos permite agregar nuevos emplaedos y gestionar los que ya estan daso de alta en la base de datos.
+![image](https://github.com/user-attachments/assets/c2dc1c30-ceb0-4ce1-8f97-8559610bb65e)
+![image](https://github.com/user-attachments/assets/bd7ad2ea-6867-4002-bc76-008f9a1ba035)
+
+* Inventario el cual nos permite agregar productos al inventario, gestionarlo o agregar cantidades del producto a la base de datos corresponidente en la base de datos de almacen.
+* Ventas el cual nos permite visualizar las ventas que se han realizado.
+* Categoria: nos permite gestionar la categorias de las motos.
+
+
 ## Empleado
 
 ![image](https://github.com/user-attachments/assets/3ee2a5d4-f662-4768-8b6d-7e8b13f8068e)
 
-El empleado cuenta con dos diferentes acciones:
+El empleado cuenta con dos diferentes botones:
 * Inventario el cual nos permite a nosotros poder checar la cantidad de motos actualmente disponibles
 * Factura el cual nos permite quenerar un venta y enviar la factura por correo
 
