@@ -11,10 +11,13 @@ Si este es correcto nos enseñara un mensaje, Bienvenido * usuario n*, dependien
 ![image](https://github.com/user-attachments/assets/238c1811-8abe-46fe-bb54-9fb38c132f8a)
 
 
-![image](https://github.com/user-attachments/assets/e758989d-980e-4542-8486-2147f9043029)
+![image](https://github.com/user-attachments/assets/8f514fa8-d0c1-4f91-b3e2-c6bf03a85998)
 
 *
 ![image](https://github.com/user-attachments/assets/e3e64184-903e-4d2d-9193-98e06a8d6905)
+
+
+![image](https://github.com/user-attachments/assets/f5371e77-4555-41e5-9489-dd0eaef702eb)
 
 
 Si el usuario o contraseñas son incorrectas nos mostrara el mensaje correspondiente
