@@ -51,6 +51,30 @@ El empleado cuenta con dos diferentes botones:
 
 ## Clases de control
 ### Clase Conexion
-![image](https://github.com/user-attachments/assets/8f48d49f-5566-44a1-8142-1671b0fc9ce3)
+''' 
+package controlador;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+/**
+ * @author ediso
+ */
+public class Conexion {
+
+    // Conexión local con SSL deshabilitado
+    public static Connection conectar() {
+        try {
+            Connection cn = DriverManager.getConnection(
+                    "jdbc:mysql://localhost/bd_sistema_concesionario?useSSL=false", "root", "25112004"
+            );
+            return cn;
+        } catch (SQLException e) {
+            System.out.println("Error en la conexión local: " + e);
+        }
+        return null;
+    }
+}
 
 
