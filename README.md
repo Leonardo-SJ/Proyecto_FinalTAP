@@ -2371,6 +2371,7 @@ a) Configuración inicial
 * Obtiene la fecha actual y la formatea.
 * Define el nombre del archivo PDF basado en el nombre del cliente y la fecha actual.
 * Crea un archivo en la ruta src/pdf/.
+  
 b) Encabezado
 * Incluye un logotipo ( emblema.jpeg).
 * Agrega datos de la empresa, como:
@@ -2379,27 +2380,33 @@ o RUC (número de identificación fiscal)
 o Dirección
 o Razón social
 * Muestra la fecha de la factura.
+  
 c) Datos del cliente
 Crea una tabla que contiene la información básica del cliente, como:
 * Cédula/RUC
 * Nombre
 * Teléfono
 * Dirección
+  
 d) Productos
 Crea una tabla para listar los productos adquiridos. Incluye:
 * Cantidad
 * Descripción
 * Precio unitario
 * Precio total
+  
 Los datos se obtienen del componente jTable_productos(probablemente una tabla en la 
 interfaz gráfica de la clase CrearFactura).
+
 e) Total a pagar
 Muestra el total a pagar extraído del campo de texto CrearFactura.txt_total_pagar.
+
 f) Mensaje de agradecimiento
 Incluye un mensaje de agradecimiento al cliente por su compra.
+
 g) Generación y apertura del PDF
-• Cierra el archivo y el documento.
-• Abre automáticamente el PDF generado en el visor predeterminado.
+* Cierra el archivo y el documento.
+* Abre automáticamente el PDF generado en el visor predeterminado.
 ```java
 ```
 
