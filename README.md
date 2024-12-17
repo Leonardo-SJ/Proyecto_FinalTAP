@@ -49,6 +49,8 @@ El empleado cuenta con dos diferentes botones:
 * Inventario el cual nos permite a nosotros poder checar la cantidad de motos actualmente disponibles
 * Factura el cual nos permite quenerar un venta y enviar la factura por correo
 
-## Metodos
-## Login
-![image](https://github.com/user-attachments/assets/fd1c20a7-43a5-4ac3-8a6b-042eca2a9ad8)
+## Clases de control
+### Clase Conexion
+![image](https://github.com/user-attachments/assets/8f48d49f-5566-44a1-8142-1671b0fc9ce3)
+
+
