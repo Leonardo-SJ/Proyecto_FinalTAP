@@ -49,7 +49,12 @@ El administrador cuenta con cinco diferentes botones:
 
 El empleado cuenta con dos diferentes botones:
 * Inventario el cual nos permite a nosotros poder checar la cantidad de motos actualmente disponibles
+
+  ![image](https://github.com/user-attachments/assets/94c42c3b-7f57-43bf-b416-8c2723bd6d9f)
+
 * Factura el cual nos permite quenerar un venta y enviar la factura por correo
+
+![image](https://github.com/user-attachments/assets/55534611-6617-48df-9530-8f0bc40ecd6c)
 
 ## Clases de control
 ### Clase Conexion
