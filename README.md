@@ -109,7 +109,9 @@ crear una instancia de la clase Conexion.
 • Tipo de retorno : Devuelve un objeto de tipo Connectionsi la conexión es exitosa; de lo 
 contrario, devuelve null
 #### Configuración de la conexión
-
+```java
+ Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/bd_sistema_concesionario?useSSL=false", "root", "25112004");
+```
 DriverManager.getConnection(): Método estático que establece la conexión con 
 la base de datos.
 
@@ -130,6 +132,11 @@ conexiones locales. Esto es común en entornos de desarrollo.
 • "angelsebas2004": Contraseña del usuario root .
 
 #### Excepciones
+```java
+catch (SQLException e) {
+            System.out.println("Error en la conexión local: " + e);
+        }
+```
 * Si hay algún problema al establecer la conexión, como un error en la cadena de conexión, 
 usuario o contraseña incorrectos, o la base de datos no está disponible, se lanza una 
 SQLException.
