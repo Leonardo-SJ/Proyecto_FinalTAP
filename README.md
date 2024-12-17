@@ -51,7 +51,7 @@ El empleado cuenta con dos diferentes botones:
 
 ## Clases de control
 ### Clase Conexion
-''' 
+```java
 package controlador;
 
 import java.sql.Connection;
@@ -76,5 +76,6 @@ public class Conexion {
         return null;
     }
 }
+
 
 
