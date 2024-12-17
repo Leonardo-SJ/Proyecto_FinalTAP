@@ -85,6 +85,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 ```
 • Connection: Representa la conexión con la base de datos.
+
 • DriverManager: Gestiona los controladores JDBC y facilita la obtención de conexiones 
 con la base de datos.
 • SQLException: Maneja las excepciones relacionadas con operaciones de bases de datos.
@@ -104,5 +105,22 @@ con la base de datos.
 ```
 • El método conectar()es static, lo que significa que se puede llamar sin necesidad de 
 crear una instancia de la clase Conexion.
+
 • Tipo de retorno : Devuelve un objeto de tipo Connectionsi la conexión es exitosa; de lo 
 contrario, devuelve null
+#### Configuración de la conexión
+
+DriverManager.getConnection(): Método estático que establece la conexión con 
+la base de datos.
+
+• Cadena de conexión :
+o jdbc:mysql://: Especifica el protocolo JDBC para una base de datos 
+MySQL.
+o localhost: Indica que la base de datos está alojada en la misma máquina 
+(servidor local).
+o bd_sistema_concesionario: Nombre de la base de datos.
+o useSSL=false: Desactiva el uso de SSL (Secure Sockets Layer) para 
+conexiones locales. Esto es común en entornos de desarrollo.
+
+• "root": Usuario de la base de datos.
+• "angelsebas2004": Contraseña del usuario root .
