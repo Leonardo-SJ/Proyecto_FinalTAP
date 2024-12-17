@@ -114,13 +114,23 @@ DriverManager.getConnection(): Método estático que establece la conexión con
 la base de datos.
 
 • Cadena de conexión :
+
 o jdbc:mysql://: Especifica el protocolo JDBC para una base de datos 
 MySQL.
+
 o localhost: Indica que la base de datos está alojada en la misma máquina 
 (servidor local).
+
 o bd_sistema_concesionario: Nombre de la base de datos.
+
 o useSSL=false: Desactiva el uso de SSL (Secure Sockets Layer) para 
 conexiones locales. Esto es común en entornos de desarrollo.
 
 • "root": Usuario de la base de datos.
 • "angelsebas2004": Contraseña del usuario root .
+
+#### Excepciones
+* Si hay algún problema al establecer la conexión, como un error en la cadena de conexión, 
+usuario o contraseña incorrectos, o la base de datos no está disponible, se lanza una 
+SQLException.
+* El mensaje de error se imprime en la consola.
